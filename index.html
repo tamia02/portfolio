@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchOS — Launch startups in days. Not months.</title>
+    <meta name="description" content="LaunchOS turns ideas into validated, revenue-ready startups using AI. The ultimate SaaS product for AI founders.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --bg: #0B0B0F;
+            --surface: #121217;
+            --border: #1A1A22;
+            --primary: #4648d4;
+            --primary-light: #6063ee;
+            --accent-purple: #8B5CF6;
+            --accent-blue: #3B82F6;
+            --error-glow: rgba(239, 68, 68, 0.15);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-satoshi {
+            font-family: 'Inter', sans-serif; /* Fallback for Satoshi */
+            letter-spacing: -0.02em;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary-gradient:hover {
+            box-shadow: 0 0 30px rgba(70, 72, 212, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .features-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: rgba(18, 18, 23, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1.5rem;
+            transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card:hover .features-overlay {
+            bottom: 0;
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-line {
+            background: linear-gradient(to bottom, var(--border), var(--accent-purple), var(--border));
+        }
+
+        .mockup-3d {
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mockup-3d:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #333; }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
+        <div class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">L</span>
+            LaunchOS
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+            <a href="#features" class="hover:text-white transition-colors">Features</a>
+            <a href="#problem" class="hover:text-white transition-colors">The Problem</a>
+            <a href="#ecosystem" class="hover:text-white transition-colors">Ecosystem</a>
+        </div>
+        <a href="https://launch-os-chi.vercel.app/" target="_blank" class="bg-white text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition-all">Start with LaunchOS</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative pt-40 pb-32 px-8 overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full"></div>
+    
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal active">
+            <span class="inline-block px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-bold tracking-widest uppercase mb-8">Series A Enabled</span>
+            <h1 class="text-7xl font-bold font-satoshi tracking-tight leading-[1.05] mb-8">
+                Launch startups in <span class="text-gradient">days.</span> Not months.
+            </h1>
+            <p class="text-xl text-gray-400 leading-relaxed mb-10 max-w-xl">
+                LaunchOS turns ideas into validated, revenue-ready startups using AI. Stop guessing. Start scaling.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="https://launch-os-chi.vercel.app/" target="_blank" class="btn-primary-gradient text-white px-8 py-4 rounded-xl font-bold shadow-lg">Start with LaunchOS</a>
+                <a href="#features" class="bg-surface border border-border text-white px-8 py-4 rounded-xl font-bold hover:bg-[#1A1A22] transition-colors">See How It Works</a>
+            </div>
+        </div>
+        
+        <div class="relative reveal active delay-200">
+            <div class="mockup-3d floating">
+                <div class="bg-gray-800/40 rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+                    <div class="flex items-center gap-2 px-4 py-3 bg-black/20 border-b border-white/5">
+                        <div class="flex gap-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+                        </div>
+                        <div class="mx-auto text-[10px] text-gray-500 font-medium">launchos.ai/dashboard</div>
+                    </div>
+                    <img src="assets/hero.png" alt="Product Dashboard" class="w-full">
+                </div>
+            </div>
+            <!-- Secondary floating elements -->
+            <div class="absolute -bottom-10 -left-10 w-48 glass-card rounded-xl p-4 floating" style="animation-delay: -2s;">
+                <div class="text-[10px] text-gray-500 uppercase font-bold mb-2">Market Signal</div>
+                <div class="text-xl font-bold text-green-400">+124%</div>
+                <div class="w-full h-1 bg-white/5 rounded-full mt-2 overflow-hidden">
+                    <div class="w-2/3 h-full bg-green-400"></div>
+                </div>
+            </div>
+            <div class="absolute -top-10 -right-5 w-56 glass-card rounded-xl p-4 floating" style="animation-delay: -4s;">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-indigo-400 text-sm">check_circle</span>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-white">MVP Roadmap</div>
+                        <div class="text-[10px] text-gray-500">Next step: Lead Gen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem Section -->
+<section id="problem" class="py-32 px-8 bg-[#08080C]">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-5xl font-bold mb-6">Building a startup is broken</h2>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Founders waste 80% of their seed capital on assumptions and fragmented tools.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-surface border border-border p-10 rounded-3xl group hover:border-red-500/30 transition-all reveal hover:shadow-[0_0_40px_rgba(239,68,68,0.05)]">
+                <span class="material-symbols-outlined text-red-500 mb-6 text-4xl">psychology_alt</span>
+                <h3 class="text-2xl font-bold mb-4">Idea Guessing</h3>
+                <p class="text-gray-400 leading-relaxed">No real validation. Just assumptions. Most founders build products for markets that don't exist.</p>
+            </div>
+            <div class="bg-surface border border-border p-10 rounded-3xl group hover:border-red-500/30 transition-all reveal delay-100 hover:shadow-[0_0_40px_rgba(239,68,68,0.05)]">
+                <span class="material-symbols-outlined text-red-500 mb-6 text-4xl">grid_view</span>
+                <h3 class="text-2xl font-bold mb-4">Tool Chaos</h3>
+                <p class="text-gray-400 leading-relaxed">10+ tools. $500/month. No central system. Your focus is drained by managing subscriptions instead of customers.</p>
+            </div>
+            <div class="bg-surface border border-border p-10 rounded-3xl group hover:border-red-500/30 transition-all reveal delay-200 hover:shadow-[0_0_40px_rgba(239,68,68,0.05)]">
+                <span class="material-symbols-outlined text-red-500 mb-6 text-4xl">speed</span>
+                <h3 class="text-2xl font-bold mb-4">Slow Execution</h3>
+                <p class="text-gray-400 leading-relaxed">Takes months to launch anything. By the time you're live, the market has already shifted.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Solution Section -->
+<section id="features" class="py-32 px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-32 reveal">
+            <h2 class="text-5xl font-bold mb-6">One system. From idea to revenue.</h2>
+            <p class="text-gray-400 text-lg">Every component you need to go from concept to unicorn, unified in one OS.</p>
+        </div>
+
+        <!-- Feature 1 -->
+        <div class="grid lg:grid-cols-2 gap-24 items-center mb-40 reveal">
+            <div>
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 mb-8">
+                    <span class="material-symbols-outlined text-purple-400">monitoring</span>
+                </div>
+                <h3 class="text-4xl font-bold mb-6">Idea Validation Engine</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-gray-400">
+                        <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
+                        Finds trending high-margin niches
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-400">
+                        <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
+                        Market size prediction (2026–2030)
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-400">
+                        <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
+                        Automatic filtering of low-signal ideas
+                    </li>
+                </ul>
+            </div>
+            <div class="relative group">
+                <div class="absolute inset-0 bg-purple-500/10 blur-[80px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
+                <div class="relative bg-gray-800/40 rounded-2xl border border-white/10 overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-all duration-700">
+                    <img src="assets/validation.png" alt="Validation UI" class="w-full">
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="grid lg:grid-cols-2 gap-24 items-center mb-40 reveal">
+            <div class="order-2 lg:order-1 relative group">
+                <div class="absolute inset-0 bg-blue-500/10 blur-[80px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
+                <div class="relative bg-gray-800/40 rounded-2xl border border-white/10 overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-all duration-700">
+                    <img src="assets/roadmap.png" alt="Roadmap UI" class="w-full">
+                </div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-8">
+                    <span class="material-symbols-outlined text-blue-400">alt_route</span>
+                </div>
+                <h3 class="text-4xl font-bold mb-6">MVP Roadmap Generator</h3>
+                <p class="text-gray-400 text-lg mb-8">LaunchOS breaks down complex builds into actionable 3-week sprints.</p>
+                <div class="space-y-6">
+                    <div class="flex gap-4 p-4 rounded-xl bg-surface border border-border">
+                        <span class="font-bold text-blue-400">Week 1</span>
+                        <div class="text-sm text-gray-300">Core architecture and landing page deployment.</div>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-xl bg-surface border border-border">
+                        <span class="font-bold text-blue-400">Week 3</span>
+                        <div class="text-sm text-gray-300">Revenue plumbing and beta tester onboarding.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="grid lg:grid-cols-2 gap-24 items-center reveal">
+            <div>
+                <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20 mb-8">
+                    <span class="material-symbols-outlined text-green-400">payments</span>
+                </div>
+                <h3 class="text-4xl font-bold mb-6">Pricing Intelligence</h3>
+                <p class="text-gray-400 text-lg mb-8">Real-time market data ingestion to suggest the perfect pricing model.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 rounded-2xl bg-surface border border-border">
+                        <div class="text-2xl font-bold mb-1">$49/mo</div>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-widest">SaaS Standard</div>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-surface border border-border">
+                        <div class="text-2xl font-bold mb-1">$2.5k</div>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-widest">One-time MVP</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="absolute inset-0 bg-green-500/10 blur-[80px] rounded-full group-hover:bg-green-500/20 transition-all"></div>
+                <div class="relative bg-gray-800/40 rounded-2xl border border-white/10 overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-all duration-700">
+                    <img src="assets/pricing.png" alt="Pricing UI" class="w-full">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Ecosystem -->
+<section id="ecosystem" class="py-32 px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-5xl font-bold mb-6">Built with real systems</h2>
+            <p class="text-gray-400">LaunchOS isn't just theory. It's the engine behind these high-performance platforms.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- NexaWare -->
+            <div class="glass-card p-4 rounded-3xl group reveal">
+                <div class="aspect-video rounded-2xl mb-6 overflow-hidden bg-gray-900 border border-white/5 shadow-inner relative">
+                    <img src="assets/nexaware_dark.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="NexaWare">
+                    <div class="features-overlay">
+                        <div class="text-indigo-400 font-bold mb-2 text-sm uppercase tracking-widest">Key Features</div>
+                        <ul class="text-xs text-gray-400 space-y-2">
+                            <li>• AI Personalization (GPT-4 Integration)</li>
+                            <li>• High-Intent Lead Routing</li>
+                            <li>• Automated Sandbox Warmups</li>
+                            <li>• 99.9% Deliverability Optimization</li>
+                        </ul>
+                        <a href="https://nexurware.vercel.app/login" target="_blank" class="mt-4 block text-center bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-500 transition-colors">Launch App</a>
+                    </div>
+                </div>
+                <div class="px-2 pb-2">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-indigo-400 transition-colors">NexaWare</h4>
+                    <p class="text-gray-400 text-sm">Cold email automation with AI personalization and high-intent routing.</p>
+                </div>
+            </div>
+
+            <!-- Email Verifier -->
+            <div class="glass-card p-4 rounded-3xl group reveal delay-100">
+                <div class="aspect-video rounded-2xl mb-6 overflow-hidden bg-gray-900 border border-white/5 shadow-inner relative">
+                    <img src="assets/email_verifier_dark.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Email Verifier">
+                    <div class="features-overlay">
+                        <div class="text-indigo-400 font-bold mb-2 text-sm uppercase tracking-widest">Key Features</div>
+                        <ul class="text-xs text-gray-400 space-y-2">
+                            <li>• Real-time DNS + MX Validation</li>
+                            <li>• SMTP Handshake Verification</li>
+                            <li>• Disposable Email Detection</li>
+                            <li>• Bulk CSV Processing Engine</li>
+                        </ul>
+                        <a href="https://email-verifier-xi.vercel.app/" target="_blank" class="mt-4 block text-center bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-500 transition-colors">Launch Tool</a>
+                    </div>
+                </div>
+                <div class="px-2 pb-2">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-indigo-400 transition-colors">Email Verifier</h4>
+                    <p class="text-gray-400 text-sm">Clean email lists with deep DNS + MX validation for founder outreach.</p>
+                </div>
+            </div>
+
+            <!-- Kinetic -->
+            <div class="glass-card p-4 rounded-3xl group reveal delay-200">
+                <div class="aspect-video rounded-2xl mb-6 overflow-hidden bg-gray-900 border border-white/5 shadow-inner relative">
+                    <img src="assets/kinetic_dark.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Kinetic">
+                    <div class="features-overlay">
+                        <div class="text-indigo-400 font-bold mb-2 text-sm uppercase tracking-widest">Key Features</div>
+                        <ul class="text-xs text-gray-400 space-y-2">
+                            <li>• Prompt-to-Bot Architecture</li>
+                            <li>• Vector Database Integration</li>
+                            <li>• Multi-Channel Deployment (Web, WA)</li>
+                            <li>• Low-Latency AI Responses</li>
+                        </ul>
+                        <a href="https://kinetic-two.vercel.app/" target="_blank" class="mt-4 block text-center bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-500 transition-colors">Launch Engine</a>
+                    </div>
+                </div>
+                <div class="px-2 pb-2">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-indigo-400 transition-colors">Kinetic</h4>
+                    <p class="text-gray-400 text-sm">Rapid chatbot engine for building conversational AI from simple prompts.</p>
+                </div>
+            </div>
+
+            <!-- Encoder -->
+            <div class="glass-card p-4 rounded-3xl group reveal delay-300">
+                <div class="aspect-video rounded-2xl mb-6 overflow-hidden bg-gray-900 border border-white/5 shadow-inner relative">
+                    <img src="assets/encoder_dark.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Encoder">
+                    <div class="features-overlay">
+                        <div class="text-indigo-400 font-bold mb-2 text-sm uppercase tracking-widest">Key Features</div>
+                        <ul class="text-xs text-gray-400 space-y-2">
+                            <li>• 1:1 Voice Cloning Precision</li>
+                            <li>• Autonomous Voice Agents</li>
+                            <li>• Real-time TTS Streamlining</li>
+                            <li>• Multi-Lingual Accent Control</li>
+                        </ul>
+                        <a href="https://encoder-ea2r-six.vercel.app/" target="_blank" class="mt-4 block text-center bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-500 transition-colors">Launch Encoder</a>
+                    </div>
+                </div>
+                <div class="px-2 pb-2">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-indigo-400 transition-colors">Encoder</h4>
+                    <p class="text-gray-400 text-sm">High-fidelity AI voice cloning and autonomous voice agent deployment.</p>
+                </div>
+            </div>
+
+            <!-- Vaslix -->
+            <div class="glass-card p-4 rounded-3xl group reveal delay-400">
+                <div class="aspect-video rounded-2xl mb-6 overflow-hidden bg-gray-900 border border-white/5 shadow-inner relative">
+                    <img src="assets/vaslix_dark.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Vaslix">
+                    <div class="features-overlay">
+                        <div class="text-indigo-400 font-bold mb-2 text-sm uppercase tracking-widest">Key Features</div>
+                        <ul class="text-xs text-gray-400 space-y-2">
+                            <li>• End-to-End CRM Automation</li>
+                            <li>• Scaling Boutique Brands</li>
+                            <li>• Lead Gen Systems (LinkedIn/IG)</li>
+                            <li>• Performance Analytics Hub</li>
+                        </ul>
+                        <a href="https://vaslix.in" target="_blank" class="mt-4 block text-center bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-500 transition-colors">Launch Agency</a>
+                    </div>
+                </div>
+                <div class="px-2 pb-2">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-indigo-400 transition-colors">Vaslix</h4>
+                    <p class="text-gray-400 text-sm">AI-native automation agency focused on scaling boutique consumer brands.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-32 px-8 bg-[#08080C]">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-5xl font-bold mb-6">How it works</h2>
+            <p class="text-gray-400">The structured path from zero to validated revenue.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-5 gap-8 relative">
+            <!-- Timeline Line Desktop -->
+            <div class="hidden md:block absolute top-12 left-0 w-full h-[2px] timeline-line opacity-30"></div>
+            
+            <div class="relative reveal">
+                <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold mb-8 relative z-10 border-4 border-[#08080C]">1</div>
+                <h4 class="text-xl font-bold mb-2">Ideation</h4>
+                <p class="text-gray-500 text-sm">Enter your startup idea into the engine.</p>
+            </div>
+            <div class="relative reveal delay-100">
+                <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold mb-8 relative z-10 border-4 border-[#08080C]">2</div>
+                <h4 class="text-xl font-bold mb-2">Validation</h4>
+                <p class="text-gray-500 text-sm">Get deep market data and niching signals.</p>
+            </div>
+            <div class="relative reveal delay-200">
+                <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold mb-8 relative z-10 border-4 border-[#08080C]">3</div>
+                <h4 class="text-xl font-bold mb-2">Roadmap</h4>
+                <p class="text-gray-500 text-sm">Receive a granular Week-by-Week MVP plan.</p>
+            </div>
+            <div class="relative reveal delay-300">
+                <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold mb-8 relative z-10 border-4 border-[#08080C]">4</div>
+                <h4 class="text-xl font-bold mb-2">Launch</h4>
+                <p class="text-gray-500 text-sm">Deploy and start your outreach engine.</p>
+            </div>
+            <div class="relative reveal delay-400">
+                <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold mb-8 relative z-10 border-4 border-[#08080C]">5</div>
+                <h4 class="text-xl font-bold mb-2">Revenue</h4>
+                <p class="text-gray-500 text-sm">Optimize for scale and recurring cashflow.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision Section -->
+<section class="py-40 px-8 relative overflow-hidden">
+    <div class="absolute -bottom-1/2 -right-1/4 w-[800px] h-[800px] bg-indigo-600/5 blur-[150px] rounded-full"></div>
+    <div class="max-w-4xl mx-auto text-center reveal">
+        <h2 class="text-4xl font-bold mb-12">The future of building startups</h2>
+        <div class="space-y-8 text-2xl text-gray-400 leading-relaxed font-light italic">
+            <p>"Startups should not take months."</p>
+            <p>"Ideas should be tested instantly.<br>Products should launch in weeks.<br>Revenue should come faster."</p>
+            <p class="text-white font-medium">"This is what I’m building."</p>
+        </div>
+        <div class="mt-16 flex flex-col items-center">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocLg0I_62F97fI7UuD0_83_xH1_6_l_u_6=s96-c" alt="Founder" class="w-16 h-16 rounded-full mb-4 border border-white/10 p-1">
+            <div class="font-bold">Tasmiya Siddiqui</div>
+            <div class="text-gray-500 text-sm">Founder, LaunchOS</div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer / CTA -->
+<footer class="py-32 px-8 border-t border-border">
+    <div class="max-w-7xl mx-auto text-center reveal">
+        <h2 class="text-5xl font-bold mb-8">Let's build something scalable</h2>
+        <p class="text-gray-400 text-xl mb-12">Join the next wave of founders building billion-dollar systems.</p>
+        <div class="flex flex-col items-center gap-6">
+            <a href="https://launch-os-chi.vercel.app/" target="_blank" class="btn-primary-gradient text-white px-12 py-5 rounded-2xl font-bold text-lg shadow-2xl">Start with LaunchOS</a>
+            <a href="mailto:tasmiyasiddiqui457@gmail.com" class="text-gray-500 hover:text-white transition-colors">tasmiyasiddiqui457@gmail.com</a>
+        </div>
+        <div class="mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-600">
+            <div>© 2024 LaunchOS. All rights reserved.</div>
+            <div class="flex gap-8">
+                <a href="https://github.com/tamia02/portfolio.git" target="_blank" class="hover:text-white flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">code</span>
+                    Source Code
+                </a>
+                <a href="#" class="hover:text-white">Terms</a>
+                <a href="#" class="hover:text-white">Privacy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Reveal animations on scroll
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
